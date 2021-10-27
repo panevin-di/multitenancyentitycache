@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+  xmlns:c="http://schemas.haulmont.com/cuba/screen/jpql_condition.xsd"
+  caption="msg://testParentBrowse.caption"
+  focusComponent="testParentsTable"
+  messagesPack="com.company.multitenancyentitycache.web.screens.testparent">
+  <data readOnly="true">
+    <collection id="testParentsDc"
+      class="com.company.multitenancyentitycache.entity.TestParent">
+      <view extends="_local">
+        <property name="child" view="_minimal"/>
+      </view>
+      <loader id="testParentsDl" cacheable="true">
+        <query>
+          <![CDATA[select e from multitenancyentitycache_TestParent e where 1 = 1]]>
+        </query>
+      </loader>
+    </collection>
+  </data>
+  <dialogMode height="600"
+    width="800"/>
+  <layout expand="testParentsTable"
+    spacing="true">
+    <filter id="filter"
+      applyTo="testParentsTable"
+      dataLoader="testParentsDl">
+      <properties include=".*"/>
+    </filter>
+    <groupTable id="testParentsTable"
+      width="100%"
+      dataContainer="testParentsDc">
+      <actions>
+        <action id="create" type="create"/>
+        <action id="edit" type="edit"/>
+        <action id="remove" type="remove"/>
+      </actions>
+      <columns>
+        <column id="tenantId"/>
+        <column id="child"/>
+      </columns>
+      <rowsCount/>
+      <buttonsPanel id="buttonsPanel"
+        alwaysVisible="true">
+        <button id="createBtn" action="testParentsTable.create"/>
+        <button id="editBtn" action="testParentsTable.edit"/>
+        <button id="removeBtn" action="testParentsTable.remove"/>
+      </buttonsPanel>
+    </groupTable>
+    <hbox id="lookupActions" spacing="true" visible="false">
+      <button action="lookupSelectAction"/>
+      <button action="lookupCancelAction"/>
+    </hbox>
+  </layout>
+</window>

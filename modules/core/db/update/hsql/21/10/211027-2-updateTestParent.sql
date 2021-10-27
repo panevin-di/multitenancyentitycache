@@ -1,0 +1,1 @@
+alter table MULTITENANCYENTITYCACHE_TEST_PARENT add column CHILD2_ID varchar(36) ;
